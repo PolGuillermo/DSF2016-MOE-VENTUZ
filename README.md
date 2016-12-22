@@ -4,6 +4,8 @@
 
 - Ventuz Designer 
 
+# Instructions
+
 Input fileds 
   - coupon
   - score
