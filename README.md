@@ -34,4 +34,6 @@ Place the code below inside "public override void Validate() {"
 	}
  
 
+# HTTP Request For Validation & Game End Score
 
+PHP not yet ready
