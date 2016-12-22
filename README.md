@@ -4,15 +4,15 @@
 
 - Ventuz Designer 
 
-# Input fileds 
+Input fileds 
   - coupon
   - score
 
-# Input filed for Request Actions 
+Input filed for Request Actions 
   - randomRequest
   - validationRequest
   - gameendRequest
 
-# Outputs
+Outputs
 
 
