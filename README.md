@@ -7,18 +7,18 @@
 # Instructions
 
 Input fileds 
-  - (int)coupon 
-  - (int)score
+  - (int) coupon 
+  - (int) score
 
 Input filed for Request Actions (Value: 0 or 1)
-  - (int)randomRequest
-  - (int)validationRequest
-  - (int)gameendRequest
+  - (int) randomRequest
+  - (int) validationRequest
+  - (int) gameendRequest
 
 Outputs
-  - (int[])multiplechoice
-  - (int)question
-  - (int)valresult
+  - (int[]) multiplechoice
+  - (int) question
+  - (int) valresult
   
   
 # Random Image & Multiple Choice
