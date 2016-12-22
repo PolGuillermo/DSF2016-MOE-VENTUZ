@@ -10,7 +10,7 @@ Input fileds
   - coupon
   - score
 
-Input filed for Request Actions 
+Input filed for Request Actions (Value: 0 or 1)
   - randomRequest
   - validationRequest
   - gameendRequest
