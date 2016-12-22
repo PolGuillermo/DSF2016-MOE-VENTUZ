@@ -16,5 +16,22 @@ Input filed for Request Actions (Value: 0 or 1)
   - gameendRequest
 
 Outputs
+  - multiplechoice
+  - question
+  - valresult
+  
+  
+ # Random Image & Multiple Choice
+ 
+ Place inside "public override void Validate() {"
+ 
+ 		// When value chage to 1 activate request
+		if(this.randomRequest == 1)
+		{
+			this.question = randomnumber(1, 51);
+			this.multiplechoice = randomaswer();
+			changed = true;
+		}
+ 
 
 
