@@ -23,7 +23,7 @@ Outputs
   
 # Random Image & Multiple Choice
  
-Place inside "public override void Validate() {"
+Place the code below inside "public override void Validate() {"
 
 	// When value chage to 1 activate request
 	if(this.randomRequest == 1)
