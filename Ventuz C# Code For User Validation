@@ -1,0 +1,132 @@
+using System;
+using System.Collections;
+using System.Linq;
+using System.IO;
+using System.Net;
+using System.Text;
+using Ventuz.Kernel;
+
+
+public class Script : ScriptBase, System.IDisposable
+{
+    
+    // This member is used by the Validate() method to indicate
+    // whether the Generate() method should return true or false
+    // during its next execution.
+    private bool changed;
+    
+    // This Method is called if the component is loaded/created.
+    public Script()
+    {
+
+    }
+    
+    // This Method is called if the component is unloaded/disposed
+    public virtual void Dispose()
+    {
+		
+    }
+    
+    // This Method is called if an input property has changed its value
+    public override void Validate()
+    {
+		// When value chage to 1 activate request
+		if(this.randomRequest == 1)
+		{
+			this.question = randomnumber(1, 51);
+			this.multiplechoice = randomaswer();
+			changed = true;
+		}
+		
+		// When value chage to 1 activate request
+		if(this.validationRequest == 1)
+		{
+			sendHTTPRequestValidation(this.coupon);
+			changed = true;
+		}
+		
+		// When value chage to 1 activate request
+		if(this.gameendRequest == 1)
+		{		
+			sendHTTPRequestGameEndSaveScore(this.coupon, this.score);
+			changed = true;
+		}
+		
+    }
+	
+	//Randomize Questions
+	private int randomnumber(int min, int max)
+	{
+		Random rnum = new Random();
+		return rnum.Next(min, max);
+	}
+	
+	// Randomize Multiple Choice
+	private int[] randomaswer(){
+		Random random = new Random();
+
+		var numbers = Enumerable.Range(1, 5).OrderBy(r => random.Next()).ToArray();
+		return numbers;
+	}
+	
+	// Coupon Validation
+	public void sendHTTPRequestValidation(int coupon){
+		//this.result = this.tid;
+		var httpWebRequest = (HttpWebRequest) WebRequest.Create("http://192.168.1.154/dsf2016/validation.php");
+		httpWebRequest.ContentType = "text/json";
+		httpWebRequest.Method = "POST";
+
+		using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
+		{
+			string json = "{\"coupon\":\"" + coupon + "\"}";
+
+			streamWriter.Write(json);
+			streamWriter.Flush();
+			streamWriter.Close();
+		}
+
+		var httpResponse = (HttpWebResponse) httpWebRequest.GetResponse();
+		using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
+		{
+			var result = streamReader.ReadToEnd();
+			this.valresult = int.Parse(result);
+		}
+	}
+	
+	// Coupon Validation
+	public void sendHTTPRequestGameEndSaveScore(int coupon, int score){
+		//this.result = this.tid;
+		var httpWebRequest = (HttpWebRequest) WebRequest.Create("http://192.168.1.154/dsf2016/game-end-save.php");
+		httpWebRequest.ContentType = "text/json";
+		httpWebRequest.Method = "POST";
+
+		using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
+		{
+			string json = "{\"coupon\":\"" + coupon + "\",\"score\":\"" + score + "\"}";
+
+			streamWriter.Write(json);
+			streamWriter.Flush();
+			streamWriter.Close();
+		}
+
+		var httpResponse = (HttpWebResponse) httpWebRequest.GetResponse();
+		using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
+		{
+			var result = streamReader.ReadToEnd();
+			this.valresult = 0;
+		}
+	}
+	
+    
+    // This Method is called every time before a frame is rendered.
+    public override bool Generate()
+    {
+        if (changed)
+        {
+            changed = false;
+            return true;
+        }
+
+        return false;
+    }
+}
