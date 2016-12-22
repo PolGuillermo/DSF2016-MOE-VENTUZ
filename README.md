@@ -21,17 +21,17 @@ Outputs
   - valresult
   
   
- # Random Image & Multiple Choice
+# Random Image & Multiple Choice
  
- Place inside "public override void Validate() {"
- 
- 		// When value chage to 1 activate request
-		if(this.randomRequest == 1)
-		{
-			this.question = randomnumber(1, 51);
-			this.multiplechoice = randomaswer();
-			changed = true;
-		}
+Place inside "public override void Validate() {"
+
+	// When value chage to 1 activate request
+	if(this.randomRequest == 1)
+	{
+		this.question = randomnumber(1, 51);
+		this.multiplechoice = randomaswer();
+		changed = true;
+	}
  
 
 
